@@ -44,7 +44,8 @@ class NetworkApiServices extends BaseApiServices{
     dynamic responseJson;
     try{
       final response = await http.post(Uri.parse(url),
-        body: jsonEncode(data)
+        // body: jsonEncode(data)
+        body: data,
       ).timeout(const Duration(seconds: 10));
       responseJson = returnResponse(response);
     }on SocketException{
@@ -53,6 +54,9 @@ class NetworkApiServices extends BaseApiServices{
       throw RequestTimeOut('');
     }
 
+    if(kDebugMode){
+      print(responseJson);
+    }
     return responseJson;
   }
 
